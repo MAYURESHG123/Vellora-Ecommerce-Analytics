@@ -1,6 +1,29 @@
-# Key DAX Measures
+# Power BI / DAX Measures
+
+The Power BI report uses measures so that the same business definitions can be reused across pages and visuals.
+
+## Total Sales
+
+```DAX
+Total Sales =
+CALCULATE(
+    SUM(Events_updated[net_revenue_usd]),
+    Events_updated[event_type] = "order"
+)
+```
+
+## Average Order Value
+
+```DAX
+Average Order Value =
+DIVIDE(
+    [Total Sales],
+    [Total Orders]
+)
+```
 
 ## Repeat Customers
+
 ```DAX
 Repeat Customers =
 COUNTROWS(
@@ -15,6 +38,7 @@ COUNTROWS(
 ```
 
 ## Repeat Customer Rate
+
 ```DAX
 Repeat Customer Rate =
 DIVIDE(
@@ -23,16 +47,28 @@ DIVIDE(
 )
 ```
 
-## Refund Rate
+## Annual Plan Sales
+
 ```DAX
-Refund Rate =
-DIVIDE(
-    [Refunded Orders],
-    [Total Orders]
+Annual Plan Sales =
+CALCULATE(
+    [Total Sales],
+    Products_final__3[billing_cycle] = "Annual"
+)
+```
+
+## Monthly Plan Sales
+
+```DAX
+Monthly Plan Sales =
+CALCULATE(
+    [Total Sales],
+    Products_final__3[billing_cycle] = "Monthly"
 )
 ```
 
 ## Refunded Orders
+
 ```DAX
 Refunded Orders =
 CALCULATE(
@@ -43,28 +79,15 @@ CALCULATE(
 ```
 
 ## Add-on Attach Rate
-```DAX
-Add-on Attach Rate =
-DIVIDE(
-    [Add-on Customers],
-    [Base Product Customers]
-)
-```
 
-## Annual Plan Sales
-```DAX
-Annual Plan Sales =
-CALCULATE(
-    [Total Sales],
-    Products_final__3[billing_cycle] = "Annual"
-)
-```
+The numerator counts customers who bought both a base product and an add-on. The denominator counts customers who bought at least one non-add-on/base product.
 
-## Monthly Plan Sales
-```DAX
-Monthly Plan Sales =
-CALCULATE(
-    [Total Sales],
-    Products_final__3[billing_cycle] = "Monthly"
-)
-```
+Final result: **62.26%**.
+
+## Repeat Customer Sales
+
+Repeat customers are identified independently of the product filter so that product-level repeat-customer sales remain accurate.
+
+## Plan Comparison
+
+A disconnected `Plan Type` table is used to switch between annual and monthly measures in the comparison visuals.
