@@ -1,100 +1,228 @@
-# DataDNA E-commerce Analytics Dashboard
+# Vellora E-commerce Analytics
 
-**November 2025 E-commerce Analytics Challenge**  
-**Tools:** MySQL | SQL | Power BI | DAX
+An end-to-end e-commerce analytics project built around a global software retailer selling subscriptions, add-ons, and digital products.
 
-A five-page Power BI analytics project analyzing sales performance, customer retention, repeat purchasing, product/subscription economics, geography, refunds, and cross-sell behaviour for a global software retailer.
+The goal of this project was not just to build a Power BI dashboard. I wanted to take a business problem, translate it into measurable questions, analyze the data using SQL, and present the findings in a way that a business stakeholder could understand quickly.
 
-## Dashboard
+---
 
-| Page | Focus |
-|---|---|
-| 01 | Executive Overview — sales, orders, customers, channels and products |
-| 02 | Customer & Retention — repeat purchase behaviour, second-purchase timing and discount association |
-| 03 | Product & Subscription — annual vs monthly plans, category sales and add-on penetration |
-| 04 | Geography & Refunds — country/currency AOV, sales geography and refund reasons |
-| 05 | Business Insights — key findings and areas for further analysis |
+## Business Objective
 
-### Preview
+The business wanted to better understand sales performance and customer purchasing behaviour, with a particular focus on:
 
-#### Executive Overview
-![Executive Overview](screenshots/01_executive_overview.png)
+- Repeat purchasing and customer retention
+- Subscription plans and purchasing behaviour
+- Product and category performance
+- Sales channels
+- Discount usage
+- Geographic pricing differences
+- Refund behaviour
+- Add-on adoption
 
-#### Customer & Retention
-![Customer & Retention](screenshots/02_customer_retention.png)
+---
 
-#### Product & Subscription
-![Product & Subscription](screenshots/03_product_subscription.png)
+## Business Questions
 
-#### Geography & Refunds
-![Geography & Refunds](screenshots/04_geography_refunds.png)
+This analysis was designed to answer the following questions:
 
-#### Business Insights
-![Business Insights](screenshots/05_business_insights.png)
+- How are sales trending over time?
+- Which channels generate the most revenue?
+- Which products and categories perform best?
+- How common are repeat purchases?
+- How quickly do customers make a second purchase?
+- Is discount usage associated with repeat purchasing?
+- Which products are most popular among repeat customers?
+- How do annual and monthly plans compare?
+- How strong is add-on adoption?
+- How does average order value vary across countries and currencies?
+- What are the main reasons behind refunds?
 
-## Key Metrics
-
-- **Total order sales:** $22.45M
-- **Total orders:** 33,601
-- **Customers:** 4,000
-- **Repeat customers:** 3,995
-- **Repeat customer rate:** 99.88%
-- **Repeat customer sales share:** 99.98%
-- **Median time to second purchase:** 44 days
-- **Refunded orders:** 689
-- **Refund rate:** 2.05%
-- **Annual-plan sales:** $19.84M
-- **Monthly-plan sales:** $1.93M
-- **Annual-plan AOV:** $1,212.88
-- **Monthly-plan AOV:** $116.72
-- **Add-on attach rate:** 62.26%
+---
 
 ## Analytical Approach
 
-### Purchase definition
-Only `event_type = 'order'` is treated as a new purchase. `invoice` events represent billing/renewal activity and are excluded from new-purchase metrics.
+I started by understanding the business objective and dataset structure before building the dashboard.
 
-### Repeat customer
-A repeat customer is a customer with **2 or more order events**.
+### 1. Data Understanding
 
-### Second-purchase timing
-First and second qualifying orders are ranked chronologically per customer using `ROW_NUMBER()`. The median time to second purchase is then calculated from the resulting customer-level intervals.
+- Audited the available tables and key fields.
+- Reviewed the event structure and product information.
+- Checked customer and product relationships.
 
-### Discount analysis
-Customers are classified according to whether they used a positive discount on at least one order. The difference in repeat rates is treated as an **observed association, not causal evidence**.
+### 2. Data Validation
 
-### Add-on attach rate
-Customer-level intersection of customers purchasing at least one non-add-on/base product and customers purchasing at least one add-on.
+- Checked duplicate event IDs.
+- Checked missing customer and product IDs.
+- Validated revenue calculations.
+- Reviewed event types and refund records.
+- Converted the event date from text into a usable date format.
 
-## Data Quality Notes
+### 3. Business Logic
 
-- 48,000 event records were audited.
-- No duplicate `event_id` values were found.
-- No missing product/customer IDs were found in the event table.
-- Event dates require parsing from `DD-MM-YYYY HH:MM` text format.
-- A substantial number of events occur before the customer-table `signup_date`; therefore signup date is not used as a proxy for first purchase or customer tenure.
-- Revenue is normalized to USD using the dataset's FX field.
+A key modelling decision was to treat:
+
+- `order` events as new purchases.
+- `invoice` events as billing or renewal activity.
+
+Therefore, purchase-based customer metrics such as repeat customers and time to second purchase were calculated using `order` events.
+
+### 4. SQL Analysis
+
+SQL was used to calculate and validate the core business metrics before building the Power BI dashboard.
+
+### 5. Power BI & DAX
+
+The validated metrics were then recreated using DAX and incorporated into an interactive Power BI report.
+
+### 6. Business Insights
+
+The final stage was to translate the analytical results into business-focused findings and areas for further investigation.
+
+---
+
+## Dashboard
+
+The Power BI dashboard is organized into five pages.
+
+### 01 — Executive Overview
+
+Provides a high-level view of:
+
+- Total sales
+- Total orders
+- Total customers
+- Repeat customer rate
+- Average order value
+- Refund rate
+- Monthly sales trends
+- Sales by channel
+- Top products
+- Category performance
+
+### 02 — Customer & Retention
+
+Focuses on customer purchasing behaviour:
+
+- Repeat customers
+- Repeat customer rate
+- Repeat customer sales share
+- Time to second purchase
+- Discount users vs non-discount users
+- Products purchased by repeat customers
+- Repeat-customer product reach
+
+### 03 — Product & Subscription
+
+Analyzes product and subscription behaviour:
+
+- Annual vs monthly plan sales
+- Annual vs monthly AOV
+- Product category performance
+- Top products
+- Add-on adoption
+- Add-on attach rate
+
+### 04 — Geography & Refunds
+
+Analyzes geographic and refund behaviour:
+
+- Sales by country
+- Average order value by country
+- Average order value by currency
+- Refund rate
+- Refunded orders
+- Refund reasons
+
+### 05 — Business Insights
+
+Summarizes the most important findings from the analysis and highlights areas that could be investigated further.
+
+---
+
+## Key Findings
+
+- **4,000** customers placed at least one order.
+- **3,995** customers placed two or more orders.
+- Repeat customer rate was **99.88%**.
+- Repeat customers generated **99.98%** of order sales.
+- Median time to second purchase was **44 days**.
+- **60.9%** of repeat customers made their second purchase within 60 days.
+- Discount users had a **99.97%** repeat rate compared with **98.04%** for non-discount users.
+- Annual plans generated **$19.84M** compared with **$1.93M** from monthly plans.
+- Annual-plan AOV was **$1,212.88** compared with **$116.72** for monthly plans.
+- Add-on attach rate was **62.26%**.
+- Order-level refund rate was **2.05%**, representing **689 refunded orders**.
+
+These figures describe observed patterns within the dataset. They should not automatically be interpreted as causal relationships. For example, the higher repeat rate among discount users indicates an association, not proof that discounts caused customers to purchase again.
+
+---
+
+## Key Metrics
+
+| Metric | Result |
+|---|---:|
+| Total Customers | 4,000 |
+| Repeat Customers | 3,995 |
+| Repeat Customer Rate | 99.88% |
+| Repeat Customer Sales Share | 99.98% |
+| Median Days to 2nd Purchase | 44 |
+| Repeat Customers Purchasing Within 60 Days | 60.9% |
+| Annual Plan Sales | $19.84M |
+| Monthly Plan Sales | $1.93M |
+| Annual Plan AOV | $1,212.88 |
+| Monthly Plan AOV | $116.72 |
+| Add-on Attach Rate | 62.26% |
+| Refund Rate | 2.05% |
+| Refunded Orders | 689 |
+
+---
+
+## Tools & Technologies
+
+- **SQL / MySQL** — Data analysis and metric validation
+- **Power BI** — Interactive dashboard development
+- **DAX** — Analytical measures and business logic
+- **Excel** — Dataset inspection and validation
+- **Data Visualization** — Business-focused reporting
+- **Business Analysis** — Metric definition and insight generation
+
+---
 
 ## Repository Structure
 
 ```text
-DataDNA-Ecommerce-Analytics/
+Vellora-Ecommerce-Analytics/
+│
 ├── README.md
+│
+├── documentation/
+│   ├── Business_Questions_and_Approach.md
+│   ├── Insights_and_Recommendations.md
+│   ├── Data_Dictionary.md
+│   ├── Data_Quality_Notes.md
+│   └── DAX_Measures.md
+│
 ├── sql/
-│   └── ecommerce_analysis.sql
+│   └── SQL_Analysis.sql
+│
 ├── powerbi/
-│   └── README.md
+│   └── Vellora-Ecommerce-Analytics.pbix
+│
 ├── screenshots/
-│   ├── 01_executive_overview.png
-│   ├── 02_customer_retention.png
-│   ├── 03_product_subscription.png
-│   ├── 04_geography_refunds.png
-│   └── 05_business_insights.png
-└── documentation/
-    ├── DAX_Measures.md
-    └── Vellora_Logo.svg
-```
+│
+└── assets/
 
-## Notes
+## Documentation
 
-The raw challenge dataset is intentionally not included in this public repository.
+- [Business Questions & Analytical Approach](documentation/Business_Questions_and_Approach.md)
+- [Insights & Recommendations](documentation/Insights_and_Recommendations.md)
+- [Data Dictionary](documentation/Data_Dictionary.md)
+- [Data Quality & Preparation Notes](documentation/Data_Quality_Notes.md)
+- [Power BI DAX Measures](documentation/DAX_Measures.md)
+- [SQL Analysis](sql/SQL_Analysis.sql)
+
+## Dataset Note
+
+The supplied challenge dataset was relatively clean, so extensive cleaning was not necessary. Most preparation work was validation, date/type conversion, metric definition, and making sure the business logic was applied consistently.
+
+The raw challenge data is not included in this public repository.
