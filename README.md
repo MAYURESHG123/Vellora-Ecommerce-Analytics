@@ -84,58 +84,27 @@ The final stage was to translate the analytical results into business-focused fi
 
 The Power BI dashboard is organized into five pages.
 
+## Dashboard Preview
+
 ### 01 — Executive Overview
 
-Provides a high-level view of:
-
-- Total sales
-- Total orders
-- Total customers
-- Repeat customer rate
-- Average order value
-- Refund rate
-- Monthly sales trends
-- Sales by channel
-- Top products
-- Category performance
+![Executive Overview](screenshots/01_Executive_Overview.png)
 
 ### 02 — Customer & Retention
 
-Focuses on customer purchasing behaviour:
-
-- Repeat customers
-- Repeat customer rate
-- Repeat customer sales share
-- Time to second purchase
-- Discount users vs non-discount users
-- Products purchased by repeat customers
-- Repeat-customer product reach
+![Customer & Retention](screenshots/02_Customer_Retention.png)
 
 ### 03 — Product & Subscription
 
-Analyzes product and subscription behaviour:
-
-- Annual vs monthly plan sales
-- Annual vs monthly AOV
-- Product category performance
-- Top products
-- Add-on adoption
-- Add-on attach rate
+![Product & Subscription](screenshots/03_Product_Subscription.png)
 
 ### 04 — Geography & Refunds
 
-Analyzes geographic and refund behaviour:
-
-- Sales by country
-- Average order value by country
-- Average order value by currency
-- Refund rate
-- Refunded orders
-- Refund reasons
+![Geography & Refunds](screenshots/04_Geography_Refunds.png)
 
 ### 05 — Business Insights
 
-Summarizes the most important findings from the analysis and highlights areas that could be investigated further.
+![Business Insights](screenshots/05_Business_Insights.png)
 
 ---
 
