@@ -97,4 +97,4 @@ DataDNA-Ecommerce-Analytics/
 
 ## Notes
 
-The raw challenge dataset is intentionally not included in this public repository. Add the final `.pbix` file under `powerbi/` after checking the challenge/data redistribution terms.
+The raw challenge dataset is intentionally not included in this public repository.
