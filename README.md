@@ -88,23 +88,23 @@ The Power BI dashboard is organized into five pages.
 
 ### 01 — Executive Overview
 
-![Executive Overview](screenshots/01_Executive_Overview.png)
+![Executive Overview](screenshots/01_executive_overview.png)
 
 ### 02 — Customer & Retention
 
-![Customer & Retention](screenshots/02_Customer_Retention.png)
+![Customer & Retention](screenshots/02_customer_retention.png)
 
 ### 03 — Product & Subscription
 
-![Product & Subscription](screenshots/03_Product_Subscription.png)
+![Product & Subscription](screenshots/03_product_subscription.png)
 
 ### 04 — Geography & Refunds
 
-![Geography & Refunds](screenshots/04_Geography_Refunds.png)
+![Geography & Refunds](screenshots/04_geography_refunds.png)
 
 ### 05 — Business Insights
 
-![Business Insights](screenshots/05_Business_Insights.png)
+![Business Insights](screenshots/05_business_insights.png)
 
 ---
 
