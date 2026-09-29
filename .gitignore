@@ -1,0 +1,15 @@
+# Power BI local/cache files
+*.pbi\_cache
+*.tmp
+~$*
+
+# Local data exports
+*.xlsx
+*.xls
+*.csv
+*.zip
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
